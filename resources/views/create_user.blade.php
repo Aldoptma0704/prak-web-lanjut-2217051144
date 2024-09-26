@@ -12,31 +12,12 @@
     <div class="container d-flex justify-content-center align-items-center" style="min-height: 90vh;">
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('user.store') }}" method="POST"> 
-                    @csrf 
-                    <div class="mb-3">
-                        <div>
-                            <label for="nama" class="form-label">Nama</label>
-                            <input type="text" class="form-control" id="nama" name="nama" required>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <div>
-                            <label for="npm" class="form-label">NPM</label>
-                            <input type="text" class="form-control" id="npm" name="npm" required>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <div>
-                            <label for="kelas" class="form-label">Kelas</label>
-                            <input type="text" class="form-control" id="kelas" name="kelas" required>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+                @include('_form', [
+                    'action' => route('user.store'), // action menuju route penyimpanan user
+                    'kelas' => $kelas, // data kelas dikirim ke partial form
+                ])
             </div>
         </div>
     </div>
-    
 </body>
 </html>
