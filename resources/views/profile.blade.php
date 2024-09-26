@@ -11,11 +11,11 @@
 
     <div class="content">
         <div class="profil-img">
-        <img src="{{ asset('assets/img/PAS FOTO ALDO.jpg') }}" alt="Foto Profile">
+        <img src="{{ asset('assets/img/images.jpeg') }}" alt="Foto Profile">
         </div>
-        <div class="item"><?= $nama ?></div>
-        <div class="item"><?= $npm ?></div>
-        <div class="item"><?= $kelas ?></div>
+        <div class="item">{{$nama}}</div>
+        <div class="item">{{$npm}}</div>
+        <div class="item">{{$nama_kelas ?? 'Kelas tidak ditemukan' }}</div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
