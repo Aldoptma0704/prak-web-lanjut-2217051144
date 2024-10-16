@@ -29,3 +29,10 @@ Route::post('/user/store', [UserController::class,
 
 Route::get('/user', [UserController::class, 
 'index'])->name('index'); 
+
+Route::get('/user/list', [UserController::class, 'index'])->name('user.list');
+Route::get('/show/{id}', [UserController::class,  'show'])->name('user.show');
+
+
+Route::get('/user/create', [UserController::class, 'create'])->name('user.create'); //tombol back ke user.creat
+Route::get('/user/show{id}', [UserController::class, 'show'])->name('user.show');
