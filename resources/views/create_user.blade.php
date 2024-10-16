@@ -6,7 +6,7 @@
         <div class="container d-flex justify-content-center align-items-center" style="min-height: 90vh;">
         <div class="card">
             <div class="card-body">
-                    <form action="{{ route('user.store') }}" method="POST">
+                    <form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                         <div class="mb-3">
                             <label for="nama" class="form-label">Nama</label>
@@ -37,6 +37,13 @@
                                     <p class="text-danger">{{ $message }}</p>
                                 @endforeach
                             </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="foto" class="form-label">Foto</label>
+                            <input type="file" id="foto" name="foto" class="form-control">
+                            @foreach($errors->get('foto') as $message)
+                                <div class="text-danger">{{ $message }}</div>
+                            @endforeach
                         </div>
 
                         <button type="submit" class="btn btn-primary">Submit</button>
