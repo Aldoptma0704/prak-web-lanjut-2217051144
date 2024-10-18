@@ -27,4 +27,5 @@ class StoreUserRequest extends FormRequest
             'kelas_id' => 'required|exists:kelas,id',
         ];
     }
+    
 }

@@ -28,9 +28,18 @@
                      <img src="{{ asset('storage/uploads/' . $user->foto) }}" alt="Foto User" width="100">
                   </td>
                   <td>
+                     <!-- View -->
                      <a href="{{ route('user.show', $user->id) }}" class="btn btn-primary btn-sm">View</a>
-                     <a href="#" class="btn btn-sm btn-primary">Edit</a>
-                     <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                     <!-- Edit -->
+                     <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary btn-sm">Edit</a>
+                     <!-- Delete -->
+                     <form action="{{ route('user.destroy', $user['id']) }}" method="POST" style="display:inline-block;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus user ini?')">
+                           Delete
+                        </button>
+                     </form>
                   </td>
                </tr>
                @endforeach

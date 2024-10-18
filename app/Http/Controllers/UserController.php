@@ -68,6 +68,58 @@ class UserController extends Controller
         return view('show_user', compact('user','kelas', 'title'));
     }
 
+    public function edit($id){
+        $user = UserModel::findOrFail($id);
+        $kelasModel = new Kelas();
+        $kelas = $kelasModel->getKelas();
+        $title = 'Edit User';
+        return view('edit_user', compact('user','kelas','title'));
+    }
+
+    public function update(StoreUserRequest $request, $id){
+        $user = UserModel::findOrFail($id);
+
+        $validatedData = $request->validated();
+
+        $user->nama = $validatedData['nama'];
+        $user->npm = $validatedData['npm'];
+        $user->kelas_id = $validatedData['kelas_id'];
+
+        // Cek apakah ada foto yang di upload
+        if($request->hasFile('foto')){
+            // ambil nama file foto dari db
+            $oldFilename = $user->foto;
+            
+            // Hapus foto lama jika ada
+            if($oldFilename){
+                $old = public_path('storage/uploads/' . $oldFilename);
+                // cek apakah file lama ada dan hapus
+                if(file_exists($oldFilename)){
+                    unlink($oldFilename); //hapus foto lama dari folder
+                }
+            }
+
+            //simpan file baru dengan storeas
+            $file = $request->file('foto');
+            $newFilename = time() . '=' . $file->getClientOriginalName();
+            $file->storeAs('uploads', $newFilename, 'public'); //menyimpan file kefolder up
+
+            //upload name file di database
+            $user->foto = $newFilename;
+        }
+
+        $user->save();
+
+        return redirect()->route('user.list')->with('succes', 'User updated successfully');
+    }
+
+    public function destroy($id){
+        $user = UserModel::findOrFail($id);
+        $user->delete();
+
+        return redirect()->to('/user/list')->with('succes', 'user has been deleted successfully');
+    }
+
     public function store(StoreUserRequest $request) 
     { 
         //validasi input
@@ -92,7 +144,19 @@ class UserController extends Controller
                 'foto' => $filename, // Menyimpan nama file ke database
             ]);
         }
-        return redirect()->to('/user/list');
+        return redirect()->to('/user/list')->with('succes', 'user has been created successfully');
+
+        $validatedData = $request->validated();
+
+        $user = UserModel::create($validatedData);
+
+        $user->load('kelas');
+
+        return view('profile', [
+            'nama' => $user->nama,
+            'npm' => $user->npm,
+            'nama_kelas' => $user->kelas->nama_kelas ?? 'kelas tidak ditemukan',
+        ]);
 
     }
 
