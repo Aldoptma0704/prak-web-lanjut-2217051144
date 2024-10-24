@@ -30,8 +30,8 @@ class UserController extends Controller
     } 
     
 
-    public function profile($nama = “”, $kelas = “”, $npm = 
-    “”) 
+    public function profile($nama = '', $kelas = '', $npm = 
+    '') 
     { 
         $data = [ 
             'nama' => $nama, 
@@ -144,7 +144,7 @@ class UserController extends Controller
                 'foto' => $filename, // Menyimpan nama file ke database
             ]);
         }
-        return redirect()->to('/user/list')->with('succes', 'user has been created successfully');
+        return redirect()->to('/')->with('succes', 'user has been created successfully');
 
         $validatedData = $request->validated();
 

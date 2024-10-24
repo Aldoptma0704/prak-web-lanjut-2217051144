@@ -15,9 +15,9 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/user/profile', [UserController::class, 'profile']); 
 Route::get('/profile/{nama}/{kelas}/{npm}', [ProfileController::class, 'profile']); 
@@ -30,7 +30,7 @@ Route::post('/user/store', [UserController::class,
 Route::get('/user', [UserController::class, 
 'index'])->name('index'); 
 
-Route::get('/user/list', [UserController::class, 'index'])->name('user.list');
+Route::get('/', [UserController::class, 'index'])->name('user.list');
 Route::get('/show/{id}', [UserController::class,  'show'])->name('user.show');
 
 
