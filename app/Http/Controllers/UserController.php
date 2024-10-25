@@ -7,6 +7,7 @@ use App\Models\Kelas;
 use App\Models\UserModel;
 use App\Http\Requests\StoreUserRequest;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Jurusan;
 
 class UserController extends Controller
 {
@@ -46,10 +47,13 @@ class UserController extends Controller
         $kelasModel = new Kelas();
 
         $kelas =  $this->kelasModel->getKelas();
+        $kelas = Kelas::all();
+        $jurusan = Jurusan::all();
 
         $data = [ 
             'title' => 'Create User',
-            'kelas' => $kelas, 
+            'kelas' => $kelas,
+            'jurusan' => $jurusan, 
             ]; 
         
         return view('create_user', $data);
@@ -72,8 +76,9 @@ class UserController extends Controller
         $user = UserModel::findOrFail($id);
         $kelasModel = new Kelas();
         $kelas = $kelasModel->getKelas();
+        $jurusan = Jurusan::all();
         $title = 'Edit User';
-        return view('edit_user', compact('user','kelas','title'));
+        return view('edit_user', compact('user','kelas','jurusan','title'));
     }
 
     public function update(StoreUserRequest $request, $id){
@@ -127,7 +132,8 @@ class UserController extends Controller
             'nama' => 'required',
             'npm' => 'required',
             'kelas_id' => 'required',
-            'foto' => 'image|file|max:10240', //validasi foto
+            'foto' => 'image|file|max:10240',
+            'jurusan_id' => 'required',
         ]);
 
         //proses up foto
@@ -135,6 +141,7 @@ class UserController extends Controller
             $file = $request->file('foto');
             $filename = time() . '_' . $file->getClientOriginalName();
             $file->storeAs('uploads', $filename); // Menyimpan file ke storage
+            
     
             // Simpan data user ke database
             $this->userModel->create([
@@ -142,6 +149,7 @@ class UserController extends Controller
                 'npm' => $request->input('npm'),
                 'kelas_id' => $request->input('kelas_id'),
                 'foto' => $filename, // Menyimpan nama file ke database
+                'jurusan_id' => $request->input('jurusan_id'), 
             ]);
         }
         return redirect()->to('/')->with('succes', 'user has been created successfully');
@@ -156,6 +164,7 @@ class UserController extends Controller
             'nama' => $user->nama,
             'npm' => $user->npm,
             'nama_kelas' => $user->kelas->nama_kelas ?? 'kelas tidak ditemukan',
+            'nama_jurusan' => $user->jurusan->nama_jurusan ?? 'jurusan tidak ditemukan',
         ]);
 
     }

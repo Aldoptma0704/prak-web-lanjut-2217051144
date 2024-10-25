@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('user', function (Blueprint $table) {
-            $table->string('foto')->nullable(); //menambahkan foto optional
+            $table->string('foto')->nullable();
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('user', function(Blueprint $table){
-            $table->dropColumn('foto'); //menghapus kolom foto jika rollback
+        Schema::table('user', function (Blueprint $table) {
+            $table->dropColumn('foto');
         });
     }
 };

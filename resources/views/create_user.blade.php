@@ -38,6 +38,24 @@
                                 @endforeach
                             </div>
                         </div>
+
+                        <div class="mb-3">
+                            <div>
+                                <label for="jurusan" class="form-label">Jurusan</label>
+                                <select name="jurusan_id" id="jurusan_id" class="form-select" required>
+                                    @foreach($jurusan as $jurusanItem)
+                                        <option value="{{$jurusanItem->id}}" {{ old('jurusan_id') == $jurusanItem->id ? 'selected' : '' }}>
+                                        {{$jurusanItem->nama_jurusan}}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @foreach($errors->get('jurusan_id') as $message)
+                                    <p class="text-danger">{{ $message }}</p>
+                                @endforeach
+                            </div>
+                        </div>
+                        
+
                         <div class="mb-3">
                             <label for="foto" class="form-label">Foto</label>
                             <input type="file" id="foto" name="foto" class="form-control">

@@ -22,6 +22,7 @@
                 <h3 class="card-title">{{ $user->nama }}</h3>
                 <p class="card-text text-muted">{{ $user->npm }}</p>
                 <p class="card-text text-muted">{{ $kelas->nama_kelas ?? 'Kelas tidak ditemukan' }}</p>
+                <p class="card-text text-muted">{{ $user->jurusan->nama_jurusan ?? 'Jurusan tidak ditemukan' }}</p>
             </div>
 
             <div class="card-footer bg-transparent text-center">
